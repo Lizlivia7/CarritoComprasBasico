@@ -1,0 +1,96 @@
+package org.cibertec.edu.pe.modelos;
+
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class OrdenProducto {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderItemId;
+	@Embedded // 
+	private Producto producto;
+	private double descuento;
+	private double subTotal;
+	@ManyToOne
+	@JoinColumn(name="orderId") //
+	private Orden orden;
+	
+	//METODOS DE CONSTRUCTORES
+	public OrdenProducto() {
+		super();
+	}
+
+
+	public OrdenProducto(Long orderItemId, Producto producto, double descuento, double subTotal, Orden order) {
+		super();
+		this.orderItemId = orderItemId;
+		this.producto = producto;
+		this.descuento = descuento;
+		this.subTotal = subTotal;
+		this.order = order;
+	}
+
+	
+	//METODOS DE LECTURA Y ESCRITURA
+
+	public Long getOrderItemId() {
+		return orderItemId;
+	}
+
+
+	public void setOrderItemId(Long orderItemId) {
+		this.orderItemId = orderItemId;
+	}
+
+
+	public Producto getProducto() {
+		return producto;
+	}
+
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+
+
+	public double getDescuento() {
+		return descuento;
+	}
+
+
+	public void setDescuento(double descuento) {
+		this.descuento = descuento;
+	}
+
+
+	public double getSubTotal() {
+		return subTotal;
+	}
+
+
+	public void setSubTotal(double subTotal) {
+		this.subTotal = subTotal;
+	}
+
+
+	public Orden getOrder() {
+		return order;
+	}
+
+
+	public void setOrder(Orden order) {
+		this.order = order;
+	}
+	
+	
+	
+	
+
+}

@@ -1,0 +1,140 @@
+package org.cibertec.edu.pe.modelos;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Entity
+public class Orden {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderId;
+	private Date OrdenDato;
+	private double productoCosto;
+	private double deliveryCosto;
+	private double descuento;
+	private double montoTotal;
+	@OneToMany(mappedBy = "orden" //
+            ,cascade = CascadeType.ALL) // 
+    private Set<OrdenProducto> ordenProductos;
+
+	
+	public void addOrderItem(OrdenProducto ordenProducto){
+        if(ordenProductos == null){
+        	ordenProductos = new HashSet<>();
+        }
+        ordenProductos.add(ordenProducto);
+        ordenProducto.setOrder(this);;
+    }
+
+	
+	//METODOS DE CONSTRUCTORES
+	
+
+	public Orden() {
+		super();
+	}
+
+
+
+
+	public Orden(Long orderId, Date ordenDato, double productoCosto, double deliveryCosto, double descuento,
+			double montoTotal, Set<OrdenProducto> ordenProductos) {
+		super();
+		this.orderId = orderId;
+		OrdenDato = ordenDato;
+		this.productoCosto = productoCosto;
+		this.deliveryCosto = deliveryCosto;
+		this.descuento = descuento;
+		this.montoTotal = montoTotal;
+		this.ordenProductos = ordenProductos;
+	}
+
+	
+	//METODOS DE LECTURA Y ESCRITURA
+
+	public Long getOrderId() {
+		return orderId;
+	}
+
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
+
+
+	public Date getOrdenDato() {
+		return OrdenDato;
+	}
+
+
+	public void setOrdenDato(Date ordenDato) {
+		OrdenDato = ordenDato;
+	}
+
+
+	public double getProductoCosto() {
+		return productoCosto;
+	}
+
+
+	public void setProductoCosto(double productoCosto) {
+		this.productoCosto = productoCosto;
+	}
+
+
+	public double getDeliveryCosto() {
+		return deliveryCosto;
+	}
+
+
+	public void setDeliveryCosto(double deliveryCosto) {
+		this.deliveryCosto = deliveryCosto;
+	}
+
+
+	public double getDescuento() {
+		return descuento;
+	}
+
+
+	public void setDescuento(double descuento) {
+		this.descuento = descuento;
+	}
+
+
+	public double getMontoTotal() {
+		return montoTotal;
+	}
+
+
+	public void setMontoTotal(double montoTotal) {
+		this.montoTotal = montoTotal;
+	}
+
+
+	public Set<OrdenProducto> getOrdenProductos() {
+		return ordenProductos;
+	}
+
+
+	public void setOrdenProductos(Set<OrdenProducto> ordenProductos) {
+		this.ordenProductos = ordenProductos;
+	}
+	
+	
+
+}
